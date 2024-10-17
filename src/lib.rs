@@ -1,4 +1,5 @@
 #![no_std]
+#![feature(abi_x86_interrupt)]
 #![cfg_attr(test, no_main)]
 #![feature(custom_test_frameworks)]
 #![test_runner(crate::test_runner)]
@@ -6,8 +7,13 @@
 
 pub mod vga_buffer;
 pub mod serial;
+pub mod interrupts;
 
 use core::panic::PanicInfo;
+
+pub fn init() {
+    interrupts::init_idt();
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u32)]
