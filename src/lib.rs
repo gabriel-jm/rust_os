@@ -12,9 +12,15 @@ pub mod gdt;
 
 use core::panic::PanicInfo;
 
+use interrupts::PICS;
+
 pub fn init() {
     gdt::init();
     interrupts::init_idt();
+    unsafe {
+        PICS.lock().initialize()
+    };
+    x86_64::instructions::interrupts::enable();
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
