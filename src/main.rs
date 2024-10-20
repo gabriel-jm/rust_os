@@ -18,7 +18,7 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("It did not crash!");
-    loop {}
+    rust_os::hlt_loop();
 }
 
 #[cfg(not(test))]
@@ -26,7 +26,7 @@ pub extern "C" fn _start() -> ! {
 fn panic(info: &PanicInfo) -> ! {
 
     println!("{info}");
-    loop {}
+    rust_os::hlt_loop();
 }
 
 #[cfg(test)]
